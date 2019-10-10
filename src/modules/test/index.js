@@ -22,13 +22,13 @@ class Test extends Component {
     console.log('cancel');
   }
 
-  onOk(val) {
-    console.log('ok', val);
+  onOk() {
+    console.log('ok');
   }
 
-  changeItem(e) {
-    console.log('onChange', e);
-  }
+  // changeItem(e) {
+  //   console.log('onChange', e);
+  // }
 
   renderAddBox() {
     return (
@@ -43,10 +43,10 @@ class Test extends Component {
       onOk: (e) => this.onOk(e),
       onChange: (e) => this.changeItem(e),
       list: testList,
+      rightEle: 'check',
       check: selectIcon,
       checked: selectedIcon,
       addBox: this.renderAddBox(),
-      rightEle: 'check'
     }
 
     return (

@@ -29,13 +29,13 @@
 
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import { checkIcon, checkedIcon } from '../../img/index';
+import ListItem from '../../components/listItem';
 
 
 export default class Picker extends Component {
 
   static defaultProps = {
-    prefixcls: 'rlb-picker',
+    prefixCls: 'rlb-picker',
     title: '标题',
     cancelText: '取消',
     okText: '确定',
@@ -75,7 +75,7 @@ export default class Picker extends Component {
       visible: false
     })
 
-    { onOk && onOk(this.state.item) }
+    { onOk && onOk() }
   }
 
   onTask(e) {
@@ -90,29 +90,11 @@ export default class Picker extends Component {
     }
   }
 
-  onChange(item, index) {
-    const { okText, onChange } = this.props;
-
-    this.setState({
-      item: item,
-      index: index
-    })
-
-    { onChange && onChange(item, index) }
-
-    if (okText.trim() === '') {
-      this.setState({
-        visible: false
-      })
-    }
-
-  }
-
   renderTitle() {
-    const { title, cancelText, okText } = this.props;
+    const { prefixCls, title, cancelText, okText } = this.props;
 
     return (
-      <div className='title'>
+      <div className={`${prefixCls}-body-title`}>
         <span onClick={() => this.onCancel()}>{cancelText}</span>
         <span>{title}</span>
         <span onClick={() => this.onOk()}>{okText}</span>
@@ -136,34 +118,25 @@ export default class Picker extends Component {
   }
 
   renderList() {
-    const { list, addBox, check, checked, rightEle } = this.props;
+    const { prefixCls, list, addBox, rightEle, check, checked } = this.props;
 
     return (
-      <div className='list'>
+      <div className={`${prefixCls}-body-list`}>
+
         {
           list.map((item, index) => {
 
-            let eyeOpenStatus = checkIcon;
-
-            if (index === this.state.index) {
-              eyeOpenStatus = checkedIcon;
-            }
-
-            if (check && checked) {
-              eyeOpenStatus = check;
-
-              if (index === this.state.index) {
-                eyeOpenStatus = checked;
-              }
+            const itemOpt = {
+              ...item,
+              index,
+              rightEle,
+              check,
+              checked,
             }
 
             return (
-              <div key={String(index)} className='item' onClick={() => this.onChange(item, index)}>
-                {this.renderItemBox(item)}
-                {rightEle === 'check' && <img className='eye-open-status' src={eyeOpenStatus} alt='eye-open' />}
-                {rightEle !== 'check' && rightEle}
-              </div>
-            )
+              <ListItem key={String(index)} {...itemOpt} />
+            );
           })
         }
 
@@ -173,17 +146,16 @@ export default class Picker extends Component {
   }
 
   render() {
-    const { hasTask } = this.props;
+    const { hasTask, prefixCls } = this.props;
 
-    let classNames = classnames({
-      'rlb-picker-box': true,
+    let classNames = classnames(`${prefixCls}-box`, {
       task: hasTask,
       visible: this.state.visible
     })
 
     return (
       <div className={classNames} onClick={(e) => this.onTask(e)}>
-        <div className='rlb-picker-body'>
+        <div className={`${prefixCls}-body`}>
           {this.renderTitle()}
           {this.renderList()}
         </div>
