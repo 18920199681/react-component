@@ -8,9 +8,7 @@
  *      check: 多选框未选中状态图标
  *      checked: 多选框已选中状态图标
  * 
- * onChange: 选中列表项,包含两个参数：
- *        item: 已选中列表项信息;
- *        index: 下标
+ * onChange: 获取选中栏的信息，参数自定义
  * 
  */
 
@@ -28,16 +26,8 @@ export default class ListItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: '' 
+      index: '',
     }
-  }
-
-  onClick(item, index) {
-    console.log(item, index);
-
-    this.setState({
-      index,
-    })
   }
 
   renderItemBox() {
@@ -55,32 +45,18 @@ export default class ListItem extends Component {
   }
 
   renderRightEle() {
-    const { prefixCls, rightEle, check, checked, index } = this.props;
-
-    let eyeOpenStatus = checkIcon;
-
-    if (index === this.state.index) {
-      eyeOpenStatus = checkedIcon;
-    }
-
-    if (check && checked) {
-      eyeOpenStatus = check;
-
-      if (index === this.state.index) {
-        eyeOpenStatus = checked
-      }
-    }
+    const { prefixCls, rightEle, eyeOpenIcon } = this.props;
 
     return (
       <div>
-        {rightEle === 'check' && <img className={`${prefixCls}-item-eye-open-status`} src={eyeOpenStatus} alt='eye-open' />}
+        {rightEle === 'check' && <img className={`${prefixCls}-item-eye-open-status`} src={eyeOpenIcon} alt='eye-open' />}
         {rightEle !== 'check' && rightEle}
       </div>
     )
   }
 
   render() {
-    const { prefixCls, label, subTitle, index } = this.props;
+    const { prefixCls, label, subTitle, onChange } = this.props;
 
     let item = {
       label,
@@ -88,7 +64,7 @@ export default class ListItem extends Component {
     }
 
     return (
-      <div className={`${prefixCls}-item`} onClick={() => this.onClick(item, index)}>
+      <div className={`${prefixCls}-item`} onClick={() => onChange()}>
         {this.renderItemBox()}
         {this.renderRightEle()}
       </div>

@@ -30,6 +30,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import ListItem from '../../components/listItem';
+import { checkIcon, checkedIcon } from '../../img/index';
 
 
 export default class Picker extends Component {
@@ -48,7 +49,7 @@ export default class Picker extends Component {
     this.state = {
       visible: props.visible,
       item: {},
-      index: ''
+      index: '',
     }
   }
 
@@ -90,6 +91,14 @@ export default class Picker extends Component {
     }
   }
 
+  onChange(item, index) {
+    console.log(item, index);
+
+    this.setState({
+      index
+    });
+  }
+
   renderTitle() {
     const { prefixCls, title, cancelText, okText } = this.props;
 
@@ -126,12 +135,26 @@ export default class Picker extends Component {
         {
           list.map((item, index) => {
 
+            let eyeOpenIcon = checkIcon;
+
+            if (index === this.state.index) {
+              eyeOpenIcon = checkedIcon;
+            }
+
+            if (check && checked) {
+              eyeOpenIcon = check;
+
+              if (index === this.state.index) {
+                eyeOpenIcon = checked;
+              }
+            }
+
             const itemOpt = {
               ...item,
               index,
               rightEle,
-              check,
-              checked,
+              eyeOpenIcon,
+              onChange: () => { this.onChange(item, index) },
             }
 
             return (
