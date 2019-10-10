@@ -7,7 +7,9 @@
  * cancelText: 取消按钮文本
  * okText: 确认按钮文本
  * onCancel: 点击取消按钮
- * onOk: 点击确认按钮,包含一个参数，传递已选中列表项信息
+ * onOk: 点击确认按钮,包含两个参数：
+ *      item: 已选中列表项信息；
+ *      index: 下标
  * 
  * list: 列表
  *      label: 第一行
@@ -21,6 +23,9 @@
  * onChange: 选中列表项,包含两个参数：
  *        item: 已选中列表项信息；
  *        index: 下标
+ * 
+ * item: 当前选中列表项的信息
+ * index: 当前选中的下标
  * 
  * addBox: 添加列表项预留位
  * 
@@ -48,15 +53,17 @@ export default class Picker extends Component {
     super(props);
     this.state = {
       visible: props.visible,
-      item: {},
-      index: '',
-    }
+      item: props.item,
+      index: props.index,
+    };
   }
 
   componentWillReceiveProps(props) {
     this.state = {
-      visible: props.visible
-    }
+      visible: props.visible,
+      item: props.item,
+      index: props.index
+    };
   }
 
   onCancel() {
@@ -64,7 +71,7 @@ export default class Picker extends Component {
 
     this.setState({
       visible: false
-    })
+    });
 
     { onCancel && onCancel() }
   }
@@ -74,9 +81,9 @@ export default class Picker extends Component {
 
     this.setState({
       visible: false
-    })
+    });
 
-    { onOk && onOk() }
+    { onOk && onOk(this.state.item, this.state.index) }
   }
 
   onTask(e) {
@@ -87,16 +94,16 @@ export default class Picker extends Component {
     if (e.target && e.target.className.indexOf('task') > 0) {
       this.setState({
         visible: false
-      })
+      });
     }
   }
 
   onChange(item, index) {
-    console.log(item, index);
+    const { onChange } = this.props;
 
-    this.setState({
-      index
-    });
+    this.setState({ item, index });
+
+    { onChange && onChange(item, index) }
   }
 
   renderTitle() {

@@ -14,20 +14,12 @@
 
 
 import React, { Component } from 'react';
-import { checkIcon, checkedIcon } from '../../img/index';
 
 
 export default class ListItem extends Component {
 
   static defaultProps = {
     prefixCls: 'list-item',
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      index: '',
-    }
   }
 
   renderItemBox() {
@@ -56,12 +48,7 @@ export default class ListItem extends Component {
   }
 
   render() {
-    const { prefixCls, label, subTitle, onChange } = this.props;
-
-    let item = {
-      label,
-      subTitle
-    }
+    const { prefixCls, onChange } = this.props;
 
     return (
       <div className={`${prefixCls}-item`} onClick={() => onChange()}>

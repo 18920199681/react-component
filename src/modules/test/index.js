@@ -8,27 +8,33 @@ class Test extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      item: {},
+      index: ''
     }
   }
 
   selectBtn() {
     this.setState({
-      visible: true,
-    })
+      visible: true
+    });
   }
 
   onCancel() {
     console.log('cancel');
   }
 
-  onOk() {
-    console.log('ok');
+  onOk(item, index) {
+    console.log('ok', item, index);
   }
 
-  // changeItem(e) {
-  //   console.log('onChange', e);
-  // }
+  changeItem(item, index) {
+    this.setState({ item, index });
+    
+    // this.setState({
+    //   visible: false
+    // });
+  }
 
   renderAddBox() {
     return (
@@ -40,9 +46,11 @@ class Test extends Component {
     const pickerOtp = {
       visible: this.state.visible,
       onCancel: (e) => this.onCancel(e),
-      onOk: (e) => this.onOk(e),
-      onChange: (e) => this.changeItem(e),
+      onOk: (item, index) => this.onOk(item, index),
+      onChange: (item, index) => this.changeItem(item, index),
       list: testList,
+      item: this.state.item,
+      index: this.state.index,
       rightEle: 'check',
       check: selectIcon,
       checked: selectedIcon,
