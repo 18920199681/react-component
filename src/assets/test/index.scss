@@ -1,13 +1,10 @@
-*{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+@import '../public.scss';
 
 .select {
   background: red;
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  height: rem375(45);
 }

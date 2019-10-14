@@ -1,0 +1,33 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+@function rem375($val) {
+  $rem_base: 375;
+  @return 1 / $rem_base * $val * 1rem;
+}
+
+@function rem750($val) {
+  $rem_base: 750;
+  @return 1 / $rem_base * $val * 1rem;
+}
+
+@function rem1080($val) {
+  $rem_base: 1080;
+  @return 1 / $rem_base * $val * 1rem;
+}
+
+@function rem1440($val) {
+  $rem_base: 1440;
+  @return 1 / $rem_base * $val * 1rem;
+}
+
+@function arem($val) {
+  $rem_base: 18;
+  $b: $val * $rem_base;
+  @return rem($b);
+}
+
