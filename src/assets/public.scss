@@ -25,9 +25,4 @@
   @return 1 / $rem_base * $val * 1rem;
 }
 
-@function arem($val) {
-  $rem_base: 18;
-  $b: $val * $rem_base;
-  @return rem($b);
-}
 

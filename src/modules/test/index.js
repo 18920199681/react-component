@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Picker from '../../components/picker';
 import testList from '../../utils/testList';
+import { formatNumber } from '../../utils';
 import { selectIcon, selectedIcon } from '../../img/index';
 
 class Test extends Component {
@@ -30,7 +31,7 @@ class Test extends Component {
 
   changeItem(item, index) {
     this.setState({ item, index });
-    
+
     // this.setState({
     //   visible: false
     // });
