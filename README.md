@@ -1,7 +1,7 @@
 
 ### 一些比较实用的工具及组件，纯属个人娱乐
 
-## ListItem
+## <ListItem {...params} />
 
   label: 第一行
   subTitle: 第二行
@@ -14,7 +14,7 @@
   onChange: 获取选中栏的信息，参数自定义
  
 
-## Picker
+## <Picker {...params} />
 
   hasTask: 是否显示蒙层，默认为true
   onTaskHide: 点击蒙层是否关闭，默认为true
